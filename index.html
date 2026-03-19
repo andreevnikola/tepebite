@@ -83,8 +83,8 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding-top: 7px;
+        padding-bottom: 0px;
         padding-left: 7px;
         padding-right: 7px;
         position: relative;
@@ -96,7 +96,7 @@
         max-width: var(--max-width);
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 10px;
       }
 
       .lang-bar {
@@ -108,11 +108,14 @@
         display: inline-flex;
         background: rgba(255, 255, 255, 0.55);
         border: 1px solid var(--outline);
-        border-radius: 999px;
+        border-radius: 20px;
         padding: 4px;
         box-shadow: var(--shadow);
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
+        margin-bottom: -12px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
       }
 
       .lang-btn {
@@ -144,6 +147,7 @@
 
       .hero {
         text-align: center;
+        border-top-right-radius: 0px;
         box-shadow: var(--hero-shadow);
         padding: calc(var(--card-padding-y) + var(--hero-top-extra-padding))
           var(--card-padding-x) var(--card-padding-y);
