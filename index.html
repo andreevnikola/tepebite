@@ -916,7 +916,7 @@
         bg: {
           headline: "Барче с характер, вдъхновено от Пловдив.",
           description:
-            "Чист вкус, модерна визия и градска енергия. Открий нашите канали, истории и проекта зад марката.",
+            "ТЕПЕ bite <u>е барчето на Пловдив</u> — създадено от пловдивчани, произведено в Пловдив и вдъхновено от мисията да опазим тепетата. Ако цениш <u>чист вкус</u>, <u>високо качество</u>, <u>местно производство</u> и бъдещето на града си, то ще се влюбиш в нашите продукти.",
           cause:
             "Част от всяка покупка подпомага грижа и развитие на тепетата.",
           causeLink: "Виж политиката ни за грижа към символите на Пловдив",
@@ -971,7 +971,7 @@
         document.documentElement.lang = lang;
         document.querySelectorAll("[data-i18n]").forEach((node) => {
           const key = node.getAttribute("data-i18n");
-          if (content[lang][key]) node.textContent = content[lang][key];
+          if (content[lang][key]) node.innerHTML = content[lang][key];
         });
 
         document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
