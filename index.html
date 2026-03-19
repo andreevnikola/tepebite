@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="bg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ТЕПЕ bite</title>
+    <meta name="description" content="ТЕПЕ bite — link hub" />
+    <style>
+      :root {
+        --bg: #f2e7d8;
+        --surface: #f7efe4;
+        --text: #4a2e57;
+        --muted: #7a637f;
+        --accent: #c47a3a;
+        --accent-dark: #aa662f;
+        --outline: rgba(74, 46, 87, 0.14);
+        --shadow: 0 12px 40px rgba(74, 46, 87, 0.12);
+        --hero-shadow: 0 16px 50px rgba(74, 46, 87, 0.14);
+        --radius-xl: 28px;
+        --radius-lg: 20px;
+        --radius-md: 14px;
+        --max-width: 520px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background:
+          radial-gradient(
+            circle at top,
+            rgba(196, 122, 58, 0.12),
+            transparent 34%
+          ),
+          linear-gradient(180deg, #f6ecdf 0%, var(--bg) 100%);
+        color: var(--text);
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body::after {
+        background: linear-gradient(
+          180deg,
+          rgba(242, 231, 216, 0.16),
+          rgba(242, 231, 216, 0.52)
+        );
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        padding: 20px 14px 28px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .shell {
+        width: 100%;
+        max-width: var(--max-width);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .lang-bar {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        background: rgba(255, 255, 255, 0.55);
+        border: 1px solid var(--outline);
+        border-radius: 999px;
+        padding: 4px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+
+      .lang-btn {
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+        transition: 180ms ease;
+      }
+
+      .lang-btn.active {
+        background: var(--text);
+        color: #fff;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid var(--outline);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .hero {
+        padding: 26px 20px 22px;
+        text-align: center;
+        box-shadow: var(--hero-shadow);
+      }
+
+      .logo-wrap {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 18px;
+      }
+
+      .logo-wrap img {
+        width: min(280px, 82vw);
+        height: auto;
+        display: block;
+      }
+
+      .headline {
+        margin: 0;
+        font-size: clamp(26px, 6vw, 34px);
+        line-height: 1.06;
+        letter-spacing: -0.03em;
+        font-weight: 800;
+        max-width: 500px;
+        color: var(--text);
+        margin: 0 auto;
+      }
+
+      .subline {
+        margin: 10px auto 0;
+        max-width: 48ch;
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--muted);
+        text-align: justify;
+      }
+
+      .cause-wrap {
+        margin-top: 30px;
+        display: grid;
+        justify-items: center;
+        gap: 8px;
+      }
+
+      .cause {
+        display: grid;
+        grid-template-columns: 18px minmax(0, 1fr);
+        align-items: center;
+        gap: 10px;
+        border-radius: 999px;
+        background: rgba(196, 122, 58, 0.12);
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.35;
+        font-weight: 700;
+        text-align: left;
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid var(--accent);
+      }
+
+      .cause-icon {
+        background-color: var(--accent);
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        display: inline-flex;
+        padding-left: 10px;
+        padding-right: 6px;
+        width: 35px;
+      }
+
+      .cause-text {
+        display: block;
+        padding: 8px;
+        padding-left: 18px;
+        padding-right: 20px;
+        text-align: justify;
+      }
+
+      .cause-link {
+        font-size: 12px;
+        line-height: 1.4;
+        color: rgba(74, 46, 87, 0.68);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: rgba(74, 46, 87, 0.2);
+      }
+
+      .cause-link:hover,
+      .cause-link:focus-visible {
+        color: var(--text);
+        text-decoration-color: rgba(74, 46, 87, 0.45);
+        outline: none;
+      }
+
+      .links-card {
+        padding: 14px;
+      }
+
+      .links-title {
+        margin: 4px 6px 12px;
+        font-size: 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .link-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .link-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px 16px;
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(74, 46, 87, 0.08);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 255, 255, 0.8)
+        );
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      .link-item:hover,
+      .link-item:focus-visible {
+        transform: translateY(-1px);
+        border-color: rgba(196, 122, 58, 0.32);
+        box-shadow: 0 10px 28px rgba(74, 46, 87, 0.1);
+        outline: none;
+      }
+
+      .link-item.primary {
+        border-color: rgba(196, 122, 58, 0.28);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 248, 242, 0.88)
+        );
+        box-shadow: 0 14px 34px rgba(196, 122, 58, 0.14);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .link-item.primary::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 5px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+      }
+
+      .link-item.primary .icon {
+        background: rgba(196, 122, 58, 0.18);
+        color: var(--accent-dark);
+      }
+
+      .link-main {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+      }
+
+      .icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: rgba(196, 122, 58, 0.12);
+        color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+
+      .icon svg {
+        width: 21px;
+        height: 21px;
+        display: block;
+      }
+      .link-copy {
+        min-width: 0;
+      }
+
+      .link-label {
+        display: block;
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .link-hint {
+        display: block;
+        margin-top: 4px;
+        font-size: 13px;
+        line-height: 1.35;
+        color: var(--muted);
+      }
+
+      .arrow {
+        width: 20px;
+        height: 20px;
+        color: var(--muted);
+        flex: 0 0 auto;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 6px 8px 12px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .footer strong {
+        color: var(--text);
+        font-weight: 800;
+      }
+
+      @media (max-width: 420px) {
+        .cause {
+          width: 100%;
+          border-radius: 18px;
+        }
+      }
+
+      @media (min-width: 641px) {
+        .page {
+          padding-top: 30px;
+          padding-bottom: 34px;
+        }
+        .hero {
+          padding: 34px 28px 26px;
+        }
+        .links-card {
+          padding: 18px;
+        }
+        .cause {
+          min-width: min(100%, 470px);
+        }
+      }
+
+      .cause-icon svg {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="shell">
+        <div class="lang-bar">
+          <div class="lang-switch" role="group" aria-label="Language switcher">
+            <button class="lang-btn active" type="button" data-lang-btn="bg">
+              BG
+            </button>
+            <button class="lang-btn" type="button" data-lang-btn="en">
+              EN
+            </button>
+          </div>
+        </div>
+
+        <section class="card hero">
+          <div class="logo-wrap">
+            <img src="logo.png" alt="ТЕПЕ bite" />
+          </div>
+          <h1 class="headline" data-i18n="headline">
+            Барче с характер, вдъхновено от Пловдив.
+          </h1>
+          <p class="subline" data-i18n="description">
+            Чист вкус, модерна визия и градска енергия. Открий нашите канали,
+            истории и проекта зад марката.
+          </p>
+          <div class="cause-wrap">
+            <div class="cause">
+              <span class="cause-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 21s-6.7-4.4-8.8-8.4C1.7 9.8 3 6.5 6.2 5.4c2-.7 4 .1 5.1 1.7 1.1-1.6 3.1-2.4 5.1-1.7 3.2 1.1 4.5 4.4 3 7.2C18.7 16.6 12 21 12 21z"
+                  ></path>
+                </svg>
+              </span>
+              <span class="cause-text" data-i18n="cause"
+                >Част от всяка покупка подпомага грижа и развитие на
+                тепетата.</span
+              >
+            </div>
+            <a
+              class="cause-link"
+              href="https://example.com/our-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="causeLink"
+            ></a>
+          </div>
+        </section>
+
+        <section class="card links-card">
+          <div class="links-title" data-i18n="linksTitle"></div>
+          <div class="link-list">
+            <a
+              class="link-item primary"
+              href="https://example.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="link-main">
+                <span class="icon" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12h18"></path>
+                    <path d="M12 3a15 15 0 0 1 0 18"></path>
+                    <path d="M12 3a15 15 0 0 0 0 18"></path>
+                  </svg>
+                </span>
+                <span class="link-copy">
+                  <span class="link-label" data-i18n="websiteLabel"></span>
+                  <span class="link-hint" data-i18n="websiteHint"></span>
+                </span>
+              </div>
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+
+            <a
+              class="link-item primary"
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="link-main">
+                <span class="icon" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <circle cx="17.5" cy="6.5" r="1"></circle>
+                  </svg>
+                </span>
+                <span class="link-copy">
+                  <span class="link-label" data-i18n="instagramLabel"
+                    >Instagram</span
+                  >
+                  <span class="link-hint" data-i18n="instagramHint"
+                    >Новини, визия и моменти от марката</span
+                  >
+                </span>
+              </div>
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+
+            <a
+              class="link-item"
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="link-main">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M13.5 22v-8h2.7l.5-3h-3.2V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2z"
+                    />
+                  </svg>
+                </span>
+                <span class="link-copy">
+                  <span class="link-label" data-i18n="facebookLabel"
+                    >Facebook</span
+                  >
+                  <span class="link-hint" data-i18n="facebookHint"
+                    >Общност, новини и събития</span
+                  >
+                </span>
+              </div>
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+
+            <a
+              class="link-item"
+              href="https://example.com/social-projects"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="link-main">
+                <span class="icon" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M12 21s-6.7-4.4-8.8-8.4C1.7 9.8 3 6.5 6.2 5.4c2-.7 4 .1 5.1 1.7 1.1-1.6 3.1-2.4 5.1-1.7 3.2 1.1 4.5 4.4 3 7.2C18.7 16.6 12 21 12 21z"
+                    ></path>
+                  </svg>
+                </span>
+                <span class="link-copy">
+                  <span class="link-label" data-i18n="projectsLabel"
+                    >Нашите социални проекти</span
+                  >
+                  <span class="link-hint" data-i18n="projectsHint"
+                    >Каузи, партньорства и въздействие</span
+                  >
+                </span>
+              </div>
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+
+            <a
+              class="link-item"
+              href="https://example.com/media"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="link-main">
+                <span class="icon" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <path d="M7 9h10"></path>
+                    <path d="M7 13h6"></path>
+                  </svg>
+                </span>
+                <span class="link-copy">
+                  <span class="link-label" data-i18n="mediaLabel"
+                    >Медиите за нас</span
+                  >
+                  <span class="link-hint" data-i18n="mediaHint"
+                    >Публикации, интервюта и истории</span
+                  >
+                </span>
+              </div>
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+
+            <a
+              class="link-item"
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="link-main">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M15.3 3c.3 1.7 1.4 3.2 3 4 .8.4 1.7.7 2.7.7v3.2c-1.7 0-3.4-.5-4.9-1.4v6.2c0 3.4-2.7 6.2-6.2 6.2S3.7 19.1 3.7 15.7s2.7-6.2 6.2-6.2c.3 0 .6 0 .8.1v3.3c-.3-.1-.5-.1-.8-.1-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9 3-1.2 3-3V3h3.4z"
+                    />
+                  </svg>
+                </span>
+                <span class="link-copy">
+                  <span class="link-label" data-i18n="tiktokLabel">TikTok</span>
+                  <span class="link-hint" data-i18n="tiktokHint"
+                    >Кратки видеа и behind-the-scenes</span
+                  >
+                </span>
+              </div>
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+
+            <a
+              class="link-item"
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="link-main">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"
+                    />
+                  </svg>
+                </span>
+                <span class="link-copy">
+                  <span class="link-label" data-i18n="youtubeLabel"
+                    >YouTube</span
+                  >
+                  <span class="link-hint" data-i18n="youtubeHint"
+                    >Видеа, истории и по-дълго съдържание</span
+                  >
+                </span>
+              </div>
+              <svg
+                class="arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </section>
+
+        <div class="footer">
+          <strong data-i18n="entity">БАИР ЕООД</strong><br /><span
+            data-i18n="footer"
+            >ТЕПЕ bite · Пловдив</span
+          >
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const content = {
+        bg: {
+          headline: "Барче с характер, вдъхновено от Пловдив.",
+          description:
+            "Чист вкус, модерна визия и градска енергия. Открий нашите канали, истории и проекта зад марката.",
+          cause:
+            "Част от всяка покупка подпомага грижа и развитие на тепетата.",
+          causeLink:
+            "Научи повече за нашата политика за грижа към символите на Пловдив",
+          linksTitle: "Открий още",
+          websiteLabel: "Нашият сайт",
+          websiteHint: "Основна информация за марката",
+          instagramLabel: "Instagram",
+          instagramHint: "Новини, визия и моменти от марката",
+          facebookLabel: "Facebook",
+          facebookHint: "Общност, новини и събития",
+          projectsLabel: "Нашите социални проекти",
+          projectsHint: "Каузи, партньорства и въздействие",
+          mediaLabel: "Медиите за нас",
+          mediaHint: "Публикации, интервюта и истории",
+          tiktokLabel: "TikTok",
+          tiktokHint: "Кратки видеа и behind-the-scenes",
+          youtubeLabel: "YouTube",
+          youtubeHint: "Видеа, истории и по-дълго съдържание",
+          entity: "БАИР ЕООД",
+          footer: "ТЕПЕ bite · Пловдив",
+        },
+        en: {
+          headline: "A bar with character, inspired by Plovdiv.",
+          description:
+            "Clean taste, modern identity, and urban energy. Explore our channels, stories, and the project behind the brand.",
+          cause:
+            "Part of every purchase supports the care and development of the hills of Plovdiv.",
+          causeLink:
+            "Learn more about our policy for caring for the symbols of Plovdiv",
+          linksTitle: "Explore more",
+          websiteLabel: "Our website",
+          websiteHint: "Main information about the brand",
+          instagramLabel: "Instagram",
+          instagramHint: "News, visuals, and brand moments",
+          facebookLabel: "Facebook",
+          facebookHint: "Community, updates, and events",
+          projectsLabel: "Our social projects",
+          projectsHint: "Causes, partnerships, and impact",
+          mediaLabel: "Media about us",
+          mediaHint: "Articles, interviews, and stories",
+          tiktokLabel: "TikTok",
+          tiktokHint: "Short videos and behind the scenes",
+          youtubeLabel: "YouTube",
+          youtubeHint: "Videos, stories, and longer-form content",
+          entity: "BAIR LTD",
+          footer: "ТЕПЕ bite · Plovdiv",
+        },
+      };
+
+      const setLanguage = (lang) => {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const key = node.getAttribute("data-i18n");
+          if (content[lang][key]) node.textContent = content[lang][key];
+        });
+
+        document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.langBtn === lang);
+        });
+
+        localStorage.setItem("tepe-lang", lang);
+      };
+
+      const savedLang = localStorage.getItem("tepe-lang");
+      const browserLang =
+        navigator.language && navigator.language.toLowerCase().startsWith("bg")
+          ? "bg"
+          : "en";
+      const initialLang = savedLang || browserLang || "bg";
+      setLanguage(initialLang);
+
+      document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+        btn.addEventListener("click", () => setLanguage(btn.dataset.langBtn));
+      });
+    </script>
+  </body>
+</html>
