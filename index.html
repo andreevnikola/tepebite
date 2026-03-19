@@ -20,6 +20,9 @@
         --radius-lg: 20px;
         --radius-md: 14px;
         --max-width: 520px;
+        --card-padding-x: 26px;
+        --card-padding-y: 26px;
+        --hero-top-extra-padding: -10px;
       }
 
       * {
@@ -80,7 +83,10 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        padding: 20px 14px 28px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 7px;
+        padding-right: 7px;
         position: relative;
         z-index: 1;
       }
@@ -137,9 +143,10 @@
       }
 
       .hero {
-        padding: 26px 20px 22px;
         text-align: center;
         box-shadow: var(--hero-shadow);
+        padding: calc(var(--card-padding-y) + var(--hero-top-extra-padding))
+          var(--card-padding-x) var(--card-padding-y);
       }
 
       .logo-wrap {
@@ -158,7 +165,7 @@
 
       .headline {
         margin: 0;
-        font-size: clamp(26px, 6vw, 34px);
+        font-size: clamp(27px, 6vw, 38px);
         line-height: 1.06;
         letter-spacing: -0.03em;
         font-weight: 800;
@@ -177,10 +184,13 @@
       }
 
       .cause-wrap {
-        margin-top: 30px;
+        margin-top: 25px;
         display: grid;
         justify-items: center;
-        gap: 8px;
+        gap: 0;
+        width: 100%;
+        position: relative;
+        padding-bottom: 18px;
       }
 
       .cause {
@@ -188,8 +198,12 @@
         grid-template-columns: 18px minmax(0, 1fr);
         align-items: center;
         gap: 10px;
-        border-radius: 999px;
-        background: rgba(196, 122, 58, 0.12);
+        border-radius: 10px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.98),
+          rgba(255, 255, 255, 0.7)
+        );
         color: var(--text);
         font-size: 13px;
         line-height: 1.35;
@@ -197,11 +211,12 @@
         text-align: left;
         width: 100%;
         overflow: hidden;
-        border: 1px solid var(--accent);
+        border: 1px solid var(--text);
+        border-bottom-width: 2px;
       }
 
       .cause-icon {
-        background-color: var(--accent);
+        background-color: var(--text);
         height: 100%;
         align-items: center;
         justify-content: center;
@@ -213,30 +228,58 @@
 
       .cause-text {
         display: block;
-        padding: 8px;
+        color: var(--text);
+        padding-top: 8px;
+        padding-bottom: 12px;
         padding-left: 18px;
         padding-right: 20px;
         text-align: justify;
       }
 
       .cause-link {
-        font-size: 12px;
-        line-height: 1.4;
-        color: rgba(74, 46, 87, 0.68);
+        position: absolute;
+        right: 14px;
+        bottom: 3px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        max-width: min(88%, 360px);
         text-decoration: underline;
-        text-underline-offset: 3px;
-        text-decoration-color: rgba(74, 46, 87, 0.2);
+        padding: 7px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(74, 46, 87, 0.2);
+        background: rgb(255, 255, 255);
+        box-shadow: 0 8px 20px rgba(74, 46, 87, 0.1);
+        font-size: 9px;
+        line-height: 1.1;
+        color: rgba(74, 46, 87, 0.86);
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .cause-link-icon {
+        width: 14px;
+        height: 14px;
+        color: var(--text);
+        flex: 0 0 auto;
+      }
+
+      .cause-link-text {
+        min-width: 0;
+        white-space: nowrap;
+        font-size: 1em;
       }
 
       .cause-link:hover,
       .cause-link:focus-visible {
         color: var(--text);
-        text-decoration-color: rgba(74, 46, 87, 0.45);
+        border-color: rgba(74, 46, 87, 0.35);
+        box-shadow: 0 10px 24px rgba(74, 46, 87, 0.12);
         outline: none;
       }
 
       .links-card {
-        padding: 14px;
+        padding: var(--card-padding-y) var(--card-padding-x);
       }
 
       .links-title {
@@ -356,6 +399,59 @@
         flex: 0 0 auto;
       }
 
+      .socials-card {
+        padding: 16px;
+        text-align: center;
+      }
+
+      .socials-title {
+        margin: 0 0 12px;
+        font-size: 14px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .social-row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .social-link {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 255, 255, 0.78)
+        );
+        border: 1px solid rgba(74, 46, 87, 0.08);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text);
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .social-link:hover,
+      .social-link:focus-visible {
+        transform: translateY(-1px);
+        border-color: rgba(196, 122, 58, 0.32);
+        outline: none;
+      }
+
+      .social-link svg {
+        width: 22px;
+        height: 22px;
+        display: block;
+      }
+
       .footer {
         text-align: center;
         padding: 6px 8px 12px;
@@ -374,6 +470,11 @@
           width: 100%;
           border-radius: 18px;
         }
+
+        .cause-link {
+          right: 10px;
+          max-width: calc(100% - 20px);
+        }
       }
 
       @media (min-width: 641px) {
@@ -381,14 +482,13 @@
           padding-top: 30px;
           padding-bottom: 34px;
         }
-        .hero {
-          padding: 34px 28px 26px;
-        }
-        .links-card {
-          padding: 18px;
-        }
         .cause {
           min-width: min(100%, 470px);
+        }
+
+        .links-card,
+        .socials-card {
+          padding: 18px;
         }
       }
 
@@ -415,13 +515,8 @@
           <div class="logo-wrap">
             <img src="logo.png" alt="ТЕПЕ bite" />
           </div>
-          <h1 class="headline" data-i18n="headline">
-            Барче с характер, вдъхновено от Пловдив.
-          </h1>
-          <p class="subline" data-i18n="description">
-            Чист вкус, модерна визия и градска енергия. Открий нашите канали,
-            истории и проекта зад марката.
-          </p>
+          <h1 class="headline" data-i18n="headline"></h1>
+          <p class="subline" data-i18n="description"></p>
           <div class="cause-wrap">
             <div class="cause">
               <span class="cause-icon">
@@ -438,18 +533,36 @@
                   ></path>
                 </svg>
               </span>
-              <span class="cause-text" data-i18n="cause"
-                >Част от всяка покупка подпомага грижа и развитие на
-                тепетата.</span
-              >
+              <span class="cause-text" data-i18n="cause"></span>
             </div>
             <a
               class="cause-link"
               href="https://example.com/our-policy"
               target="_blank"
               rel="noopener noreferrer"
-              data-i18n="causeLink"
-            ></a>
+            >
+              <svg
+                class="cause-link-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 10.4v5.2"></path>
+                <circle
+                  cx="12"
+                  cy="7.5"
+                  r="0.9"
+                  fill="currentColor"
+                  stroke="none"
+                ></circle>
+              </svg>
+              <span class="cause-link-text" data-i18n="causeLink"></span>
+            </a>
           </div>
         </section>
 
@@ -520,12 +633,8 @@
                   </svg>
                 </span>
                 <span class="link-copy">
-                  <span class="link-label" data-i18n="instagramLabel"
-                    >Instagram</span
-                  >
-                  <span class="link-hint" data-i18n="instagramHint"
-                    >Новини, визия и моменти от марката</span
-                  >
+                  <span class="link-label" data-i18n="instagramLabel"></span>
+                  <span class="link-hint" data-i18n="instagramHint"></span>
                 </span>
               </div>
               <svg
@@ -558,12 +667,8 @@
                   </svg>
                 </span>
                 <span class="link-copy">
-                  <span class="link-label" data-i18n="facebookLabel"
-                    >Facebook</span
-                  >
-                  <span class="link-hint" data-i18n="facebookHint"
-                    >Общност, новини и събития</span
-                  >
+                  <span class="link-label" data-i18n="facebookLabel"></span>
+                  <span class="link-hint" data-i18n="facebookHint"></span>
                 </span>
               </div>
               <svg
@@ -603,12 +708,8 @@
                   </svg>
                 </span>
                 <span class="link-copy">
-                  <span class="link-label" data-i18n="projectsLabel"
-                    >Нашите социални проекти</span
-                  >
-                  <span class="link-hint" data-i18n="projectsHint"
-                    >Каузи, партньорства и въздействие</span
-                  >
+                  <span class="link-label" data-i18n="projectsLabel"></span>
+                  <span class="link-hint" data-i18n="projectsHint"></span>
                 </span>
               </div>
               <svg
@@ -648,12 +749,8 @@
                   </svg>
                 </span>
                 <span class="link-copy">
-                  <span class="link-label" data-i18n="mediaLabel"
-                    >Медиите за нас</span
-                  >
-                  <span class="link-hint" data-i18n="mediaHint"
-                    >Публикации, интервюта и истории</span
-                  >
+                  <span class="link-label" data-i18n="mediaLabel"></span>
+                  <span class="link-hint" data-i18n="mediaHint"></span>
                 </span>
               </div>
               <svg
@@ -686,10 +783,8 @@
                   </svg>
                 </span>
                 <span class="link-copy">
-                  <span class="link-label" data-i18n="tiktokLabel">TikTok</span>
-                  <span class="link-hint" data-i18n="tiktokHint"
-                    >Кратки видеа и behind-the-scenes</span
-                  >
+                  <span class="link-label" data-i18n="tiktokLabel"></span>
+                  <span class="link-hint" data-i18n="tiktokHint"></span>
                 </span>
               </div>
               <svg
@@ -722,12 +817,8 @@
                   </svg>
                 </span>
                 <span class="link-copy">
-                  <span class="link-label" data-i18n="youtubeLabel"
-                    >YouTube</span
-                  >
-                  <span class="link-hint" data-i18n="youtubeHint"
-                    >Видеа, истории и по-дълго съдържание</span
-                  >
+                  <span class="link-label" data-i18n="youtubeLabel"></span>
+                  <span class="link-hint" data-i18n="youtubeHint"></span>
                 </span>
               </div>
               <svg
@@ -747,11 +838,75 @@
           </div>
         </section>
 
+        <section class="card socials-card">
+          <div class="socials-title" data-i18n="socialTitle"></div>
+          <div class="social-row">
+            <a
+              class="social-link"
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                <circle cx="12" cy="12" r="4"></circle>
+                <circle cx="17.5" cy="6.5" r="1"></circle>
+              </svg>
+            </a>
+            <a
+              class="social-link"
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M13.5 22v-8h2.7l.5-3h-3.2V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2z"
+                />
+              </svg>
+            </a>
+            <a
+              class="social-link"
+              href="https://tiktok.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M15.3 3c.3 1.7 1.4 3.2 3 4 .8.4 1.7.7 2.7.7v3.2c-1.7 0-3.4-.5-4.9-1.4v6.2c0 3.4-2.7 6.2-6.2 6.2S3.7 19.1 3.7 15.7s2.7-6.2 6.2-6.2c.3 0 .6 0 .8.1v3.3c-.3-.1-.5-.1-.8-.1-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9 3-1.2 3-3V3h3.4z"
+                />
+              </svg>
+            </a>
+            <a
+              class="social-link"
+              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 2 12a29 29 0 0 0 .4 4.8 2.8 2.8 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 22 12a29 29 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"
+                />
+              </svg>
+            </a>
+          </div>
+        </section>
+
         <div class="footer">
-          <strong data-i18n="entity">БАИР ЕООД</strong><br /><span
+          <strong data-i18n="entity"></strong><br /><span
             data-i18n="footer"
-            >ТЕПЕ bite · Пловдив</span
-          >
+          ></span>
         </div>
       </div>
     </main>
@@ -764,8 +919,7 @@
             "Чист вкус, модерна визия и градска енергия. Открий нашите канали, истории и проекта зад марката.",
           cause:
             "Част от всяка покупка подпомага грижа и развитие на тепетата.",
-          causeLink:
-            "Научи повече за нашата политика за грижа към символите на Пловдив",
+          causeLink: "Виж политиката ни за грижа към символите на Пловдив",
           linksTitle: "Открий още",
           websiteLabel: "Нашият сайт",
           websiteHint: "Основна информация за марката",
@@ -777,6 +931,7 @@
           projectsHint: "Каузи, партньорства и въздействие",
           mediaLabel: "Медиите за нас",
           mediaHint: "Публикации, интервюта и истории",
+          socialTitle: "Последвай ни",
           tiktokLabel: "TikTok",
           tiktokHint: "Кратки видеа и behind-the-scenes",
           youtubeLabel: "YouTube",
@@ -790,8 +945,7 @@
             "Clean taste, modern identity, and urban energy. Explore our channels, stories, and the project behind the brand.",
           cause:
             "Part of every purchase supports the care and development of the hills of Plovdiv.",
-          causeLink:
-            "Learn more about our policy for caring for the symbols of Plovdiv",
+          causeLink: "See our policy for caring for Plovdiv's symbols",
           linksTitle: "Explore more",
           websiteLabel: "Our website",
           websiteHint: "Main information about the brand",
@@ -803,6 +957,7 @@
           projectsHint: "Causes, partnerships, and impact",
           mediaLabel: "Media about us",
           mediaHint: "Articles, interviews, and stories",
+          socialTitle: "Follow us",
           tiktokLabel: "TikTok",
           tiktokHint: "Short videos and behind the scenes",
           youtubeLabel: "YouTube",
@@ -824,6 +979,32 @@
         });
 
         localStorage.setItem("tepe-lang", lang);
+        requestAnimationFrame(fitCauseLinkText);
+      };
+
+      const fitCauseLinkText = () => {
+        const causeLink = document.querySelector(".cause-link");
+        const causeLinkText = document.querySelector(".cause-link-text");
+        if (!causeLink || !causeLinkText) return;
+
+        const maxFontSize = 9;
+        const minFontSize = 4.2;
+        const step = 0.2;
+
+        let currentSize = maxFontSize;
+        causeLinkText.style.fontSize = `${currentSize}px`;
+
+        while (
+          currentSize > minFontSize &&
+          causeLink.scrollWidth > causeLink.clientWidth
+        ) {
+          currentSize -= step;
+          causeLinkText.style.fontSize = `${currentSize}px`;
+        }
+
+        if (causeLink.scrollWidth > causeLink.clientWidth) {
+          causeLinkText.style.fontSize = `${minFontSize}px`;
+        }
       };
 
       const savedLang = localStorage.getItem("tepe-lang");
@@ -833,6 +1014,8 @@
           : "en";
       const initialLang = savedLang || browserLang || "bg";
       setLanguage(initialLang);
+
+      window.addEventListener("resize", fitCauseLinkText);
 
       document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
         btn.addEventListener("click", () => setLanguage(btn.dataset.langBtn));
