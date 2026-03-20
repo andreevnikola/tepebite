@@ -436,6 +436,8 @@
 
       .socials-card {
         padding: 16px;
+        padding-top: 35px;
+        padding-bottom: 35px;
         text-align: center;
       }
 
@@ -453,6 +455,13 @@
         justify-content: center;
         flex-wrap: wrap;
         gap: 10px;
+      }
+
+      .socials-divider {
+        width: min(220px, 70%);
+        height: 1px;
+        margin: 21px auto 10px;
+        background: rgba(var(--text-rgb), 0.2);
       }
 
       .social-link {
@@ -485,6 +494,53 @@
         width: 22px;
         height: 22px;
         display: block;
+      }
+
+      .contact-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 16px;
+        border-radius: 16px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 255, 255, 0.78)
+        );
+        border: 1px solid rgba(var(--text-rgb), 0.08);
+        color: var(--text);
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease;
+        max-width: 235px;
+        width: 100%;
+      }
+
+      .contact-link:hover,
+      .contact-link:focus-visible {
+        transform: translateY(-1px);
+        border-color: rgba(var(--accent-rgb), 0.32);
+        outline: none;
+      }
+
+      .contact-link svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+
+      .contact-title {
+        margin: 0 0 10px;
+        margin-top: 25px;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
       }
 
       .footer {
@@ -936,6 +992,27 @@
               </svg>
             </a>
           </div>
+          <div class="socials-divider" aria-hidden="true"></div>
+          <div class="contact-title" data-i18n="contactTitle"></div>
+          <a
+            class="contact-link"
+            href="mailto:tepe@mail.bg"
+            aria-label="Email tepe@mail.bg"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <path d="m4 7 8 6 8-6"></path>
+            </svg>
+            <span>tepe@mail.bg</span>
+          </a>
         </section>
 
         <div class="footer">
@@ -967,6 +1044,7 @@
           mediaLabel: "Медиите за нас",
           mediaHint: "Публикации, интервюта и истории",
           socialTitle: "Последвай ни",
+          contactTitle: "Contact us",
           tiktokLabel: "TikTok",
           tiktokHint: "Кратки видеа и behind-the-scenes",
           youtubeLabel: "YouTube",
@@ -993,6 +1071,7 @@
           mediaLabel: "Media about us",
           mediaHint: "Articles, interviews, and stories",
           socialTitle: "Follow us",
+          contactTitle: "Contact us",
           tiktokLabel: "TikTok",
           tiktokHint: "Short videos and behind-the-scenes",
           youtubeLabel: "YouTube",
