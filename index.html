@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <title>ТЕПЕ bite - Социални мрежи</title>
     <meta name="description" content="ТЕПЕ bite — link hub" />
     <style>
@@ -28,6 +29,10 @@
         --card-padding-x: 26px;
         --card-padding-y: 26px;
         --hero-top-extra-padding: -10px;
+        --logo-box-percent: 96;
+        --logo-max-width: 620px;
+        --logo-frame-ratio: 3.2 / 1;
+        --logo-focus-y: 46%;
       }
 
       * {
@@ -185,17 +190,21 @@
       }
 
       .logo-wrap {
-        display: inline-flex;
+        display: block;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        margin-bottom: 18px;
+        width: min(calc(var(--logo-box-percent) * 1%), var(--logo-max-width));
+        aspect-ratio: var(--logo-frame-ratio);
+        margin: 0 auto 18px;
+        overflow: hidden;
       }
 
       .logo-wrap img {
-        width: min(280px, 82vw);
-        height: auto;
+        width: 100%;
+        height: 100%;
         display: block;
+        object-fit: cover;
+        object-position: center var(--logo-focus-y);
       }
 
       .headline {
